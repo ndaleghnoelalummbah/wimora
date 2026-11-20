@@ -1,18 +1,10 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import BraidersScreen from "../screens/braders-screen/braders-screen";
+import ScreenWrapper from "@/components/ui/screen-wraper/screen-wraper";
 
-export default function Index() {
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
-      <Button title="Submit" />
-    </View>
+    <ScreenWrapper>
+      <BraidersScreen />
+    </ScreenWrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,0 +1,108 @@
+export const BRAIDERS = [
+  {
+    id: "1",
+    name: "Amara Mensah",
+    specialty: "Knotless Box Braids",
+    rating: 4.9,
+    startingPrice: 80,
+    bio: "Specialist in tension-free knotless braids and protective styling with 7 years of experience.",
+    services: [
+      {
+        id: "s1",
+        name: "Medium Knotless Braids",
+        price: 120,
+        duration: "4 hrs",
+      },
+      {
+        id: "s2",
+        name: "Small Knotless Braids",
+        price: 160,
+        duration: "5.5 hrs",
+      },
+      {
+        id: "s3",
+        name: "Jumbo Knotless Braids",
+        price: 80,
+        duration: "2.5 hrs",
+      },
+    ],
+    availableTimeSlots: ["09:00 AM", "01:30 PM", "04:30 PM"],
+  },
+  {
+    id: "2",
+    name: "Chidinma Okafor",
+    specialty: "Fulani & Tribal Braids",
+    rating: 4.8,
+    startingPrice: 75,
+    bio: "Intricate cornrow patterns, Fulani feed-in styles, and bead detailing.",
+    services: [
+      { id: "s4", name: "Classic Fulani Braids", price: 95, duration: "3 hrs" },
+      {
+        id: "s5",
+        name: "Stitch Cornrows (8-10 Braids)",
+        price: 75,
+        duration: "2 hrs",
+      },
+      {
+        id: "s6",
+        name: "Boho Fulani with Curls",
+        price: 130,
+        duration: "3.5 hrs",
+      },
+    ],
+    availableTimeSlots: ["10:00 AM", "02:00 PM", "05:00 PM"],
+  },
+  {
+    id: "3",
+    name: "Zainab Diallo",
+    specialty: "Boho & Goddess Locs",
+    rating: 5.0,
+    startingPrice: 90,
+    bio: "Lightweight, natural-looking soft locs and bohemian goddess braids.",
+    services: [
+      {
+        id: "s7",
+        name: "Shoulder-Length Soft Locs",
+        price: 90,
+        duration: "3 hrs",
+      },
+      {
+        id: "s8",
+        name: "Waist-Length Goddess Locs",
+        price: 145,
+        duration: "4.5 hrs",
+      },
+      { id: "s9", name: "Loc Retwist & Style", price: 90, duration: "2 hrs" },
+    ],
+    availableTimeSlots: ["09:30 AM", "01:00 PM", "04:00 PM"],
+  },
+  {
+    id: "4",
+    name: "Nadine Kamga",
+    specialty: "Senegalese & Passion Twists",
+    rating: 4.7,
+    startingPrice: 70,
+    bio: "Clean parting and neat, long-lasting rope twists and spring twists.",
+    services: [
+      {
+        id: "s10",
+        name: "Medium Passion Twists",
+        price: 100,
+        duration: "3 hrs",
+      },
+      {
+        id: "s11",
+        name: "Senegalese Rope Twists",
+        price: 115,
+        duration: "4 hrs",
+      },
+      {
+        id: "s12",
+        name: "Two-Strand Natural Twists",
+        price: 70,
+        duration: "1.5 hrs",
+      },
+    ],
+    availableTimeSlots: ["11:00 AM", "02:30 PM", "05:30 PM"],
+  },
+];

@@ -1,0 +1,13 @@
+import { Radius, Spacing, ThemePalette } from "@/constants/theme";
+import { StyleSheet } from "react-native";
+
+export const createStyles = (themeColor: ThemePalette) =>
+  StyleSheet.create({
+    centered: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      paddingVertical: Spacing["4xl"],
+      gap: Spacing.md,
+    },
+  });
