@@ -26,7 +26,7 @@ import { BraidersContainer } from "@/features/braiders/components/braiders-conta
 import { useTheme } from "@/hooks/use-theme";
 import { useCallback, useMemo, useState } from "react";
 import { View } from "react-native";
-import { createStyles } from "./braders-screen.style";
+import { createStyles } from "./braiders-screen.style";
 
 export default function BraidersScreen() {
   const themeColor = useTheme();

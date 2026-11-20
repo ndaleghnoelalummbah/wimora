@@ -91,6 +91,8 @@ export const Colors = {
 
     // Overlay
     overlay: "#00000080",
+    error: "#E8000B",
+    success: "#0ca943",
   },
 
   dark: {
@@ -125,6 +127,8 @@ export const Colors = {
 
     // Overlay
     overlay: "#00000099",
+    error: "#FF6467",
+    success: "#3ca661",
   },
 } as const;
 

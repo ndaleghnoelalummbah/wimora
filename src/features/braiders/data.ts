@@ -64,3 +64,16 @@ export async function fetchBraiders(shouldFail = false): Promise<Braider[]> {
 
   return BRAIDERS_DATA;
 }
+
+export async function fetchBraiderById(
+  id: string,
+  shouldFail = false,
+): Promise<Braider | null> {
+  await new Promise((resolve) => setTimeout(resolve, 300));
+
+  if (shouldFail) {
+    throw new Error("Unable to load braider details. Please try again.");
+  }
+
+  return BRAIDERS_DATA.find((item) => item.id === id) ?? null;
+}

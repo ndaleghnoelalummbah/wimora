@@ -32,6 +32,26 @@ export default function RootLayout() {
       >
         {/* Optionally configure static options outside the route.*/}
         <Stack.Screen name="index" options={{ title: "Braiders" }} />
+        <Stack.Screen
+          name="braiders/[braiderId]"
+          options={{
+            title: "Braider Details",
+          }}
+        />
+        <Stack.Screen
+          name="booking/[braiderId]"
+          options={{
+            title: "Book Appointment",
+          }}
+        />
+        <Stack.Screen
+          name="booking/confirmation"
+          options={{
+            title: "Confirmation",
+            headerBackVisible: false,
+            gestureEnabled: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
