@@ -1,56 +1,120 @@
-# Welcome to your Expo app 👋
+# Wimora — Hair Braider Discovery & Booking App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile-first hair braider discovery and appointment booking application built with **Expo** and **TypeScript**. Designed with a warm minimalist editorial aesthetic, Wimora enables clients to browse stylists, filter by name or specialty, inspect services and availability, and complete a booking flow.
 
-## Get started
+---
 
-1. Install dependencies
+## Core Features
 
+1. **Braider Discovery (`/`):**
+   - Displays a curated list of hair braiders with their name, specialty, rating, and starting price.
+   - Real-time search by braider name or specialty with debounced filtering and instant clear-reset behavior.
+   - Dedicated loading, empty-search, and error-recovery states.
+2. **Braider Detail (`/braiders/[braiderId]`):**
+   - Presents the braider's profile summary, full service menu (with pricing and formatted durations), and available appointment slots.
+   - Supports optional pre-selection of a service and time slot before entering the booking flow.
+3. **Appointment Booking & Confirmation (`/booking/[braiderId]` & `/booking/confirmation`):**
+   - Guided booking form allowing customers to choose a service, pick an available time slot, and enter their name and US-formatted phone number with inline validation.
+   - Generates a complete booking confirmation summary with a unique booking reference and safe stack replacement to prevent duplicate submissions.
+
+---
+
+## Tech Stack
+
+- **Framework:** Expo SDK & React Native
+- **Routing:** Expo Router (file-based typed navigation)
+- **Language:** TypeScript (strict interfaces for domain models, navigation params, and component props)
+- **Icons:** `lucide-react-native`
+- **Safe Area & Keyboard Handling:** `react-native-safe-area-context` & `KeyboardAvoidingView`
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** (v18 or later recommended)
+- **npm** or **yarn**
+- **Expo Go** app on iOS/Android, or an **iOS Simulator** / **Android Emulator**
+
+### Installation & Running Locally
+
+1. **Clone the repository and install dependencies:**
    ```bash
+   git clone <repository-url>
+   cd wimora
    npm install
    ```
 
-2. Start the app
-
+2. **Start the Expo development server:**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Open the application:**
+   - **Physical Device:** Scan the QR code displayed in the terminal using Expo Go (Android) or the Camera app (iOS).
+   - **iOS Simulator:** Press `i` in the terminal.
+   - **Android Emulator:** Press `a` in the terminal.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Project Structure
 
-## Get a fresh project
+```text
+src/
+├── app/                          # Thin Expo Router route files & Stack layout
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── braiders/[braiderId].tsx
+│   └── booking/
+│       ├── [braiderId].tsx
+│       └── confirmation.tsx
+├── components/                   # Some reusable UI primitives & smart feature containers include
+│   ├── braider-card/
+│   ├── braider-detail-container/
+│   ├── braider-detail-header/
+│   ├── braiders-container/
+│   ├── phone-input/
+│   ├── screen-wrapper/
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+├── constants/
+│   └── theme.ts                  # Semantic color palettes, spacing, typography, and radii
+├── features/
+│   └── braiders/                 # Domain types, mock dataset, async fetchers, and hooks
+│       ├── data.ts
+│       ├── types.ts
+│       └── hooks/
+│           ├── use-braider.ts
+│           └── use-braiders.ts
+├── hooks/
+│   ├── use-debounced-value.ts
+│   └── use-theme.ts
+├── screens/                      # Declarative screen 
+└── utils/
+    └── formatters.ts             # Currency, duration, phone masking, and reference helpers
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+---
 
-### Other setup steps
+## Key Architectural & Engineering Decisions
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### 1. Strict Separation of Concerns (Routes, Screens, Containers, Primitives)
+- **Thin Route Files (`app/`):** Route files strictly extract and normalize typed URL parameters via `useLocalSearchParams` and wrap screens in `ScreenWrapper`.
+- **Custom Hooks (`useBraiders`, `useBraider`, `useDebouncedValue`):** Asynchronous data fetching, race-condition guards (`isActive` cleanup), retry triggers, and search filtering live in custom hooks rather than inside JSX components. Effects avoid synchronous `setState` calls to stay fully compliant with React Compiler lint rules.
+- **Composable Atomic Inputs:** Base input styling, focus states, and validation messages are encapsulated in `FormTextInput` and specialized in `PhoneInput` so forms remain concise and DRY.
 
-## Learn more
+### 2. Design Token System & Separated Stylesheets
+- All colors, spacing increments, border radii, and font sizes are centralized in `constants/theme.ts` with semantic tokens (`surface`, `primarySubtle`, `onPrimarySubtle`, `borderStrong`, `focus`, `error`) supporting both light and dark modes.
+- Every component and screen isolates its `StyleSheet` inside a co-located `*.styles.ts` factory (`createStyles(themeColor)`) memoized via `useMemo`.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Tactile UX, Accessibility & Edge-Case Handling
+- **Smart Debounced Search:** `useDebouncedValue` smooths keystroke filtering while snapping immediately to `""` when the user taps the clear button.
+- **Pre-Selection Continuity:** Tapping a service or time slot on the Braider Detail screen passes those selections forward via route params to pre-populate the booking form.
+- **Navigation Integrity:** Submitting a booking uses `router.replace()` to transition to the confirmation screen and disables back-swipe gestures on confirmation so completed bookings cannot be accidentally re-submitted.
+- **Accessibility & Performance:** Interactive controls include `accessibilityRole`, `accessibilityLabel`, and `accessibilityState`; list items are memoized with `React.memo` and rendered via `FlatList` with `keyboardDismissMode="on-drag"`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## What I Would Do Next
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **International Country Code Support in `PhoneInput`:** Enhance the `PhoneInput` component to pull and select international country calling codes (with region-aware formatting and validation) rather than defaulting strictly to a US 10-digit mask.
