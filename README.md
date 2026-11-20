@@ -43,6 +43,7 @@ A mobile-first hair braider discovery and appointment booking application built 
    ```bash
    git clone <repository-url>
    cd wimora
+   git checkout -b dev
    npm install
    ```
 
